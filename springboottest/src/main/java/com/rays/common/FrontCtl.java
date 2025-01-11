@@ -40,7 +40,7 @@ public class FrontCtl extends HandlerInterceptorAdapter {
 			if (session.getAttribute("user") == null) {
 				System.out.println("3333");
 				response.setContentType("application/json");
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);//exception 403,401
 				response.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
 				response.setHeader("Access-Control-Allow-Credentials", "true");
 				response.setHeader("Access-Control-Allow-Methods", "GET,DELETE,OPTIONS,POST,PUT");

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import com.rays.common.BaseDTO;
 
 @Entity
-@Table(name = "ST_GENDER")
+@Table(name = "st_gender")
 public class GenderDTO extends BaseDTO {
 
 	public static String YES = "Y";
