@@ -57,6 +57,9 @@ import { AssetComponent } from './asset/asset.component';
 import { AssetListComponent } from './asset/assetlist.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerlistComponent } from './customer/customerlist.component';
+import { UserCustomComponent } from './user/user-custom/user-custom.component';
+import { OrderComponent } from './order/order.component';
+import { OrderlistComponent } from './order/orderlist.component';
 
 
 
@@ -113,6 +116,9 @@ export function myHttpLoader(http: HttpClient) {
     AssetListComponent,
     CustomerComponent,
     CustomerlistComponent,
+    UserCustomComponent,
+    OrderComponent,
+    OrderlistComponent,
 
   ],
   imports: [

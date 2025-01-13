@@ -39,6 +39,8 @@ import { AssetComponent } from './asset/asset.component';
 import { AssetListComponent } from './asset/assetlist.component';
 import { CustomerComponent } from './customer/customer.component';
 import { CustomerlistComponent } from './customer/customerlist.component';
+import { OrderComponent } from './order/order.component';
+import { OrderlistComponent } from './order/orderlist.component';
 
 
 const routes: Routes = [
@@ -224,6 +226,22 @@ const routes: Routes = [
         component : TimetableComponent
       
     },
+    {
+        path: 'order',
+        component: OrderComponent
+
+    },
+    {
+        path: 'order/:id',
+        component: OrderComponent
+
+    },
+    {
+        path: 'orderlist',
+        component: OrderlistComponent
+
+    },
+
     {
         path: 'subject',
         component: SubjectComponent

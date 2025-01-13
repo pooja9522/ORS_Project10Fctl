@@ -23,6 +23,6 @@ export class EndpointServiceService {
  
   public ASSET = this.SERVER_URL + "/Asset";
   public CUSTOMER = this.SERVER_URL + "/Customer";
-
+  public ORDER = this.SERVER_URL  + "/Order";
 
 }

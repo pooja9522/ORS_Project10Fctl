@@ -115,7 +115,7 @@ export class BaseCtl implements OnInit {
 
   /**
    * Searhs records 
-   */
+   */n
     search() {
     console.log("search start")
     var _self = this;
@@ -130,7 +130,7 @@ export class BaseCtl implements OnInit {
         
         if (_self.form.list.length == 0) {
           
-          _self.form.message = "No record found";
+          _self.form.message = "No record found"; 
           _self.form.error = true;
         }
         console.log("List Size", _self.form.list.length);
@@ -153,6 +153,7 @@ export class BaseCtl implements OnInit {
         _self.form.message = null;
         _self.form.error = false;
       }
+      
 
       if (res.success) {
         _self.form.list = res.result.data;

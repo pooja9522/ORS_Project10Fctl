@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     if(localStorage.getItem("locale")!=null){
     translate.setDefaultLang(localStorage.getItem("locale"));
     }else{
-      translate.setDefaultLang("en");
+      translate.setDefaultLang("en"); 
     }
    
   }
