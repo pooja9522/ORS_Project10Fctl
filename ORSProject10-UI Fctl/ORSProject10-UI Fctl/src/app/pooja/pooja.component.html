@@ -1,0 +1,224 @@
+<app-navbar></app-navbar>
+
+<style>
+  .grad {
+    background-image: linear-gradient(to bottom right, rgb(32, 168, 168), rgb(219, 231, 237));
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding-bottom: 25px;
+  }
+
+  .background {
+    padding-top: 3%;
+    padding-bottom: 13%;
+    background: url('assets/files/wall.jpg') no-repeat center center;
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+  }
+
+  .required-field {
+    color: red;
+  }
+
+  .alertRedColor {
+    color: red;
+  }
+</style>
+
+<div class="container-fluid background">
+  <div class="row justify-content-center">
+    <div class="col-sm-8 col-md-6 col-lg-4">
+      <div class="card">
+        <div class="card-body shadow-lg grad">
+          <form name="assetForm">
+            <h2 *ngIf="!form.data.id" class="text-primary font-weight-bold" style="text-align: center;">
+              {{ 'Add Pooja' | translate }}
+            </h2>
+            <h2 *ngIf="form.data.id" class="text-primary font-weight-bold" style="text-align: center;">
+              {{ 'Update Pooja' | translate }}
+            </h2>
+
+            <!-- Form error messages -->
+            <div *ngIf="form.error && form.message" class="alert alert-danger alert-dismissible fade show">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ form.message }}
+            </div>
+            <div *ngIf="!form.error && form.message" class="alert alert-success alert-dismissible fade show">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ form.message }}
+            </div>
+
+
+            <div class="form-group pt-2">
+              <label><b>{{ 'Name' | translate }}</b><span class="required-field">*</span></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-id-badge grey-text"></i></div>
+                </div>
+                <input type="text" name="name" [(ngModel)]="form.data.name" class="form-control" maxlength="16"
+                  (keydown)="validateName($event)" placeholder="{{ 'Enter Name' | translate }}" required>
+              </div>
+              <span *ngIf="errorMessageName" class="alertRedColor">{{ errorMessageName }}</span>
+              <span *ngIf="form.inputerror?.Name" class="alertRedColor">{{ form.inputerror.Name }}</span>
+            </div>
+           
+
+
+
+
+
+            <div class="form-group pt-2">
+              <label><b>{{ 'Registration Number' | translate }}</b><span class="required-field">*</span></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-id-badge grey-text"></i></div>
+                </div>
+                <input type="text" name="registrationNumber" [(ngModel)]="form.data.registrationNumber" class="form-control"
+                  (keydown)="filterInput($event, 'errorMessageRegistrationNumber', 20, 'char')"
+                  placeholder="{{ 'Enter Registration Number' | translate }}" required>
+              </div>
+              <span *ngIf="errorMessageRegistrationNumber" class="alertRedColor">{{ errorMessageRegistrationNumber }}</span>
+              <span *ngIf="form.inputerror?.registrationNumber" class="alertRedColor">{{ form.inputerror.registrationNumber }}</span>
+            </div>
+            
+            <div class="form-group">
+              <label><b>{{ 'Birth Date' | translate }}</b><span class="required-field"></span></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-calendar-alt grey-text"></i></div>
+                </div>
+                <input type="date" name="birthDate" [value]="form.data.birthDate | date:'yyyy-MM-dd'"
+                  (input)="form.data.birthDate=parseDate($event.target.value)" class="form-control" required />
+              </div>
+              <span *ngIf="form.inputerror.birthDate" class="alertRedColor">{{ form.inputerror.birthDate
+                }}</span>
+            </div>
+
+           
+            <div class="form-group pt-2">
+              <label><b>{{ 'Phone' | translate }}</b><span class="required-field">*</span></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-dollar-sign grey-text"></i></div>
+                </div>
+                <input type="text" name="phone" [(ngModel)]="form.data.phone" class="form-control"
+                  (keydown)="filterInput($event, 'errorMessageCoverageAmount', 10, 'int')"
+                  placeholder="{{ 'Enter Phone' | translate }}" required>
+              </div>
+              <span *ngIf="errorMessagePhone" class="alertRedColor">{{ errorMessagePhone }}</span>
+              <span *ngIf="form.inputerror?.phone" class="alertRedColor">{{ form.inputerror.phone }}</span>
+            </div>
+
+
+
+            <div class="form-group pt-2">
+              <label><b>{{ 'Itemvalue' | translate }}</b><span class="required-field">*</span></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-dollar-sign grey-text"></i></div>
+                </div>
+                <input type="text" name="itemvalue" [(ngModel)]="form.data.itemvalue" class="form-control"
+                  (keydown)="filterInput($event, 'errorMessageItemvalue', 10, 'int')"
+                  placeholder="{{ 'Enter Itemvalue' | translate }}" required>
+              </div>
+              <span *ngIf="errorMessageItemvalue" class="alertRedColor">{{ errorMessageItemvalue }}</span>
+              <span *ngIf="form.inputerror?.itemvalue" class="alertRedColor">{{ form.inputerror.itemvalue }}</span>
+            </div>
+
+            <div class="form-group pt-2">
+              <label><b>{{ 'Specialization' | translate }}</b><span class="required-field">*</span></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-paint-brush grey-text"></i></div>
+                </div>
+                <select class="form-control" name="specialization" [(ngModel)]="form.data.specialization" aria-label="ngSelected" required>
+                  <option [ngValue]="undefined">{{ 'Select specialization' | translate }}</option>
+                  <option *ngFor="let sp of form.preload.special" [value]="sp.key">{{ sp.value }}</option>
+                </select>
+              </div>
+              <span *ngIf="form.inputerror?.specialization" class="alertRedColor">{{ form.inputerror.specialization }}</span>
+            </div>
+
+            <div style="padding-top:3%">
+              <span class="pt-2"><b>{{'Description' | translate }}</b>
+                <span class="required-field"></span></span>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-bars grey-text"></i> </div>
+                  </div>
+                  <textarea class="form-control" placeholder="{{'Enter Description' | translate }}" name="description"
+                    [(ngModel)]="form.data.description"></textarea>
+                </div>
+              </div><span class="alertRedColor"> {{form.inputerror.description}} </span>
+            </div>
+
+
+            <div class="form-group pt-2">
+              <label><b>{{ 'Quantity' | translate }}</b><span class="required-field">*</span></label>
+              <div class="input-group">
+                
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-dollar-sign grey-text"></i></div>
+                </div>
+                <input type="text" name="quantity" [(ngModel)]="form.data.quantity" class="form-control"
+                  (keydown)="filterInput($event, 'errorMessageQuantity', 10, 'int')"
+                  placeholder="{{ 'Enter Quantity' | translate }}" required>
+              </div>
+              <span *ngIf="errorMessageQuantity" class="alertRedColor">{{ errorMessageQuantity }}</span>
+              <span *ngIf="form.inputerror?.quantity" class="alertRedColor">{{ form.inputerror.quantity }}</span>
+            </div>
+
+
+            <div class="form-group">
+              <label><b>{{ 'Cash Available' | translate }}</b><span class="required-field">*</span></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-money-bill-wave grey-text"></i></div>
+                </div>
+                <input type="text" name="cashAvailable" [(ngModel)]="form.data.cashAvailable" class="form-control"
+                  placeholder="{{ 'Enter cashAvailable' | translate }}" (input)="validateCashAvailableInput($event)">
+              </div>
+              <span *ngIf="form.inputerror.cashAvailable" class="alertRedColor">{{ form.inputerror.cashAvailable }}</span>
+            </div>
+          
+
+  
+
+            <div class="row pt-2 pl-2 pb-3">
+  
+              <div class="col-md-3"></div>
+              
+              <div class="pt-2">
+                <button *ngIf="!form.data.id > 0" (click)="submit()" class="btn btn-success mr-2">
+                  {{ 'Save' | translate }}
+                </button>
+              </div>
+            
+              <div class="col-md-1"></div>
+            
+              <div class="pt-2">
+                <button *ngIf="form.data.id > 0" (click)="submit()" class="btn btn-success mr-2">
+                  {{ 'Update' | translate }}
+                </button>
+              </div>
+              
+              <div class="pt-2">
+                <a class="btn btn-warning mr-1" type="button" [routerLink]="['/poojalist']"
+                   style="text-decoration: none; color: white;">
+                  {{ 'List' | translate }}
+                </a>
+              </div>
+              
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
